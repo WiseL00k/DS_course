@@ -55,8 +55,8 @@ int main(void)
             system("pause");
             break;
         }
-        case GENEGATE_RESULT:
-            
+        case GENEGATE_MST:
+            GenerateMenu(vexs, n, arcs, e);
         // 退出
         case EXIT:
             printf("已退出程序!\n谢谢使用!\n");
@@ -67,8 +67,7 @@ int main(void)
             system("pause");
             break;
         }
-
     } while (select != EXIT);
-    
+
     return 0;
 }
