@@ -22,8 +22,8 @@ void GenerateMenu(VexType *vexs, int n, ArcInfo *arcs, int e);
 void displayInputDataMenu();
 void displayGenerateMenu();
 void displayOutputResultWayMenu();
-void outputResultWayMenu(int outputResultWay);
-void generatePrim(VexType *vexs, int n, ArcInfo *arcs, int e, int *outputResultWay);
-void generateKruskal(VexType *vexs, int n, ArcInfo *arcs, int e, int *outputResultWay);
+void outputResultWayMenu(int *outputResultWay);
+void generatePrim(VexType *vexs, int n, ArcInfo *arcs, int e, int outputResultWay);
+void generateKruskal(VexType *vexs, int n, ArcInfo *arcs, int e, int outputResultWay);
 
 #endif /* __MENU_H__ */
