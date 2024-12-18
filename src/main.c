@@ -6,7 +6,7 @@
 
 int main(void)
 {
-    int select, n = 10, e = 10;
+    int select = -1, n = 10, e = 10;
     VexType *vexs = NULL;
     ArcInfo *arcs = NULL;
     // 默认测试数据
@@ -17,6 +17,7 @@ int main(void)
     // 主菜单
     do
     {
+        select = -1;
         system("cls"); // 清屏
         displayInputDataMenu();
         fflush(stdin); // 清空输入缓冲区
