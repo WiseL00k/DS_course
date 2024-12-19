@@ -14,7 +14,7 @@
 #define UNVISITED 0
 #define VISITED 1
 #define INFINITY MAXINT
-#define MAXINT 0xFFFFFFFF
+#define MAXINT 0x0FFFFFFF
 
 typedef char VexType;
 typedef struct
@@ -50,6 +50,8 @@ Status InitGraph_M(MGraph *G, GraphKind kind, VexType *vexs, int n);
 Status CreateGraph_M(MGraph *G, GraphKind kind, VexType *vexs, int n, ArcInfo *arcs, int e);
 // 创建无向图G
 Status CreateUDG_M(MGraph *G, VexType *vexs, int n, ArcInfo *arcs, int e);
+// 创建无向带权图G
+Status CreateUDN_M(MGraph *G, VexType *vexs, int n, ArcInfo *arcs, int e);
 // 销毁图G
 Status DestroyGraph_M(MGraph *G);
 // 查找顶点v在图G中的位序
@@ -73,7 +75,7 @@ Status DFSTraverse_M(MGraph G, Status (*visit)(int));
 // 广度优先遍历图G
 Status BFSTraverse_M(MGraph G, Status (*visit)(int));
 // 打印邻接矩阵图
-Status printMGraph(MGraph H);
+Status PrintGraph_M(MGraph H);
 // 在图G中设置顶点v到顶点w的弧或边
 Status SetArc_M(MGraph *G, VexType v, VexType w, int info);
 

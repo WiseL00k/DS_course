@@ -54,6 +54,8 @@ Status CreateGraph_M(MGraph *G, GraphKind kind, VexType *vexs, int n, ArcInfo *a
     {
     case UDG:
         return CreateUDG_M(G, vexs, n, arcs, e); // 创建无向图
+    case UDN:
+        return CreateUDN_M(G, vexs, n, arcs, e); // 创建无向带权图
     default:
         return ERROR;
     }
@@ -75,6 +77,26 @@ Status CreateUDG_M(MGraph *G, VexType *vexs, int n, ArcInfo *arcs, int e)
         if (i < 0 || j < 0)
             return ERROR;
         G->arcs[i][j] = G->arcs[j][i] = 1;
+    }
+    return OK;
+}
+
+Status CreateUDN_M(MGraph *G, VexType *vexs, int n, ArcInfo *arcs, int e)
+{
+    int i, j, k;
+    VexType v, w;
+    if (InitGraph_M(G, UDN, vexs, n) != OK)
+        return ERROR;
+    G->e = e;
+    for (k = 0; k < G->e; ++k)
+    {
+        v = arcs[k].v;
+        w = arcs[k].w;
+        i = LocateVex_M(*G, v);
+        j = LocateVex_M(*G, w);
+        if (i < 0 || j < 0)
+            return ERROR;
+        G->arcs[i][j] = G->arcs[j][i] = arcs[k].info;
     }
     return OK;
 }
@@ -244,16 +266,16 @@ Status BFSTraverse_M(MGraph G, Status (*visit)(int))
     return OK;
 }
 
-Status printMGraph(MGraph H)
+Status PrintGraph_M(MGraph H)
 {
     printf("该邻接矩阵图的信息如下\n");
     printf("顶点数:%d,边数:%d\n", H.n, H.e);
     printf("邻接矩阵如下\n");
-    printf("顶点数组 关系数组\n");
+    printf("顶点数组 关 系 数 组\n");
     printf("行\\列->\t ");
     for (int i = 0; i < H.n; i++)
     {
-        printf("%d ", i);
+        printf("%d\t", i);
     }
     printf("\n");
     for (int i = 0; i < H.n; i++)
@@ -261,7 +283,10 @@ Status printMGraph(MGraph H)
         printf("%d %c\t ", i, H.vexs[i]);
         for (int j = 0; j < H.n; j++)
         {
-            printf("%d ", H.arcs[i][j]);
+            if (H.arcs[i][j] == INFINITY)
+                printf("∞\t");
+            else
+                printf("%d\t", H.arcs[i][j]);
         }
         printf("\n");
     }

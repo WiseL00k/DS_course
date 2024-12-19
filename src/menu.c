@@ -3,7 +3,7 @@
 void GenerateMenu(VexType *vexs, int n, ArcInfo *arcs, int e)
 {
     int select = -1;
-    int outputResultWay = USE_STRING;
+    int outputResultWay = USE_PRINT;
     double graphDensity = e / (n * (n - 1) / 2);
     do
     {
@@ -122,8 +122,22 @@ void outputResultWayMenu(int *outputResultWay)
 void generatePrim(VexType *vexs, int n, ArcInfo *arcs, int e, int outputResultWay)
 {
     MGraph G, T;
-
-    Prim(G, 0, &T);
+    CreateGraph_M(&G, UDN, vexs, n, arcs, e);
+    if (OK == Prim(G, 0, &T))
+    {
+        if (outputResultWay == USE_PRINT)
+        {
+            printf("Prim算法结果:\n");
+            PrintGraph_M(T);
+        }
+    }
+    else
+    {
+        printf("Prim算法失败!\n");
+        printf("请检查输入数据是否正确!是否是连通图!\n");
+    }
+    puts("按任意键以继续...");
+    system("pause");
 }
 
 void generateKruskal(VexType *vexs, int n, ArcInfo *arcs, int e, int outputResultWay)

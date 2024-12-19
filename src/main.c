@@ -6,12 +6,12 @@
 
 int main(void)
 {
-    int select = -1, n = 10, e = 10;
+    int select = -1, n = 5, e = 7;
     VexType *vexs = NULL;
     ArcInfo *arcs = NULL;
     // 默认测试数据
-    VexType default_test_vexs[10] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'};
-    ArcInfo default_test_arcs[10] = {{'A', 'C', 1}, {'A', 'D', 1}, {'C', 'E', 1}, {'C', 'D', 1}, {'B', 'D', 1}, {'G', 'H', 1}, {'G', 'I', 1}, {'H', 'I', 1}, {'H', 'F', 1}, {'I', 'J', 1}};
+    VexType default_test_vexs[5] = {'A', 'B', 'C', 'D', 'E'};
+    ArcInfo default_test_arcs[7] = {{'A', 'B', 3}, {'A', 'D', 8}, {'A', 'E', 10}, {'E', 'D', 9}, {'B', 'D', 6}, {'C', 'B', 15}, {'C', 'E', 12}};
     vexs = default_test_vexs;
     arcs = default_test_arcs;
     // 主菜单
@@ -28,8 +28,8 @@ int main(void)
         {
             vexs = default_test_vexs;
             arcs = default_test_arcs;
-            n = 10;
-            e = 10;
+            n = 5;
+            e = 7;
             puts("已加载默认测试数据!");
             puts("按任意键以继续...");
             system("pause");
