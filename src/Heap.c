@@ -37,16 +37,9 @@ void MakeHeap(Heap *H, RcdType *E, int n, int size, int tag, int (*prior)(KeyTyp
     H->n = n;
     H->size = size;
     H->tag = tag;
-
-    if (NULL == H->rcd)
-        H->rcd = (RcdType *)malloc(sizeof(RcdType) * (H->size + 1));
-
-    for (int i = 1; i <= size; i++)
-    {
-        H->rcd[i].key = E[i].key;
-    }
-
     H->prior = prior;
+    H->rcd = E;
+
     for (int i = n / 2; i > 0; i--)
         ShiftDown(H, i); // 对以i结点为根的子树进行筛选
 }
@@ -114,7 +107,8 @@ Status RemoveFirstHeap(Heap *H, RcdType *e)
     if (H->n <= 0)
         return ERROR;
     *e = H->rcd[1];             // 取出堆顶结点
-    swapHeapElem(H, 1, H->n--); // 交换堆顶与堆尾结点,堆长度减1
+    swapHeapElem(H, 1, H->n); // 交换堆顶与堆尾结点,堆长度减1
+    H->n--;
     if (H->n > 1)
         ShiftDown(H, 1); // 从堆顶位置向下筛选
     return OK;
@@ -143,12 +137,14 @@ Status RemoveHeap(Heap *H, int pos, RcdType *e)
     // pos的结点值优先于替换值,向下筛选
     if (H->prior(H->rcd[pos].key, H->rcd[H->n].key))
     {
-        swapHeapElem(H, pos, H->n--);
+        swapHeapElem(H, pos, H->n);
+        H->n--;
         ShiftDown(H, pos);
     }
     else
     {
-        swapHeapElem(H, pos, H->n--);
+        swapHeapElem(H, pos, H->n);
+        H->n--;
         ShiftUp(H, pos);
     }
     return OK;
