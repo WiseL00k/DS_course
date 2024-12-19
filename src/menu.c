@@ -143,6 +143,26 @@ void generatePrim(VexType *vexs, int n, ArcInfo *arcs, int e, int outputResultWa
 void generateKruskal(VexType *vexs, int n, ArcInfo *arcs, int e, int outputResultWay)
 {
     ALGraph G, T;
-
-    Kruskal(G, &T);
+    if (ERROR == CreateGraph_AL(&G, UDN, vexs, n, arcs, e))
+    {
+        printf("创建图失败!\n");
+        puts("按任意键以继续...");
+        system("pause");
+        return;
+    }
+    if (OK == Kruskal(G, &T))
+    {
+        if (outputResultWay == USE_PRINT)
+        {
+            printf("Kruskal算法结果:\n");
+            PrintGraph_AL(T);
+        }
+    }
+    else
+    {
+        printf("Kruskal算法失败!\n");
+        printf("请检查输入数据是否正确!是否是连通图!\n");
+    }
+    puts("按任意键以继续...");
+    system("pause");
 }

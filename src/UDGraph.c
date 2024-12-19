@@ -323,6 +323,8 @@ Status CreateGraph_AL(ALGraph *G, GraphKind kind, VexType *vexs, int n, ArcInfo 
     {
     case UDG:
         return CreateUDG_AL(G, vexs, n, arcs, e); // 创建无向图
+    case UDN:
+        return CreateUDN_AL(G, vexs, n, arcs, e); // 创建无向带权图G
     default:
         return ERROR;
     }
@@ -368,6 +370,53 @@ Status CreateUDG_AL(ALGraph *G, VexType *vexs, int n, ArcInfo *arcs, int e)
         if (p == NULL)
             return ERROR;
         p->info = 1;
+        p->adjvex = i;
+        p->nextArc = G->vexs[j].firstArc;
+        G->vexs[j].firstArc = p;
+    }
+    return OK;
+}
+
+Status CreateUDN_AL(ALGraph *G, VexType *vexs, int n, ArcInfo *arcs, int e)
+{
+    int i, j, k;
+    VexType v, w;
+    AdjVexNodeP p;
+    G->n = n;
+    G->e = e;
+    G->vexs = (VexNode *)malloc(sizeof(VexNode) * n);
+    G->tags = (int *)malloc(sizeof(int) * n);
+    if (G->vexs == NULL || G->tags == NULL) // 内存分配失败
+        return ERROR;
+    for (i = 0; i < n; ++i)
+    {
+        G->vexs[i].data = vexs[i];
+        G->vexs[i].firstArc = NULL;
+        G->tags[i] = UNVISITED;
+    }
+    for (k = 0; k < G->e; ++k)
+    {
+        v = arcs[k].v;
+        w = arcs[k].w;
+        if (v == w) // 无向图无自环
+            continue;
+        i = LocateVex_AL(*G, v);
+        j = LocateVex_AL(*G, w);
+        if (i < 0 || j < 0) // v或w顶点不存在
+            return ERROR;
+
+        p = (AdjVexNodeP)malloc(sizeof(AdjVexNode));
+        if (p == NULL)
+            return ERROR;
+        p->info = arcs[k].info;
+        p->adjvex = j;
+        p->nextArc = G->vexs[i].firstArc;
+        G->vexs[i].firstArc = p;
+
+        p = (AdjVexNodeP)malloc(sizeof(AdjVexNode));
+        if (p == NULL)
+            return ERROR;
+        p->info = arcs[k].info;
         p->adjvex = i;
         p->nextArc = G->vexs[j].firstArc;
         G->vexs[j].firstArc = p;
@@ -574,7 +623,7 @@ Status BFSTraverse_AL(ALGraph G, Status (*visit)(int))
     return OK;
 }
 
-Status printALGraph(ALGraph H)
+Status PrintGraph_AL(ALGraph H)
 {
     printf("该邻接表图的信息如下\n");
     printf("顶点数:%d,边数:%d\n", H.n, H.e);

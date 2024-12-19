@@ -3,6 +3,8 @@
 
 #include "UDGraph.h"
 #include "Status.h"
+#include "Heap.h"
+#include "DSU.h"
 
 // 生成最小生成树
 Status generateMST(); 

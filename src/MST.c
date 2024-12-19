@@ -55,11 +55,62 @@ Status Prim(MGraph G, int i, MGraph *T)
             }
     }
     free(closedge);
-    if(T->e == G.n-1)
+    if (T->e == G.n - 1)
         return OK;
     return ERROR;
 }
 
 Status Kruskal(ALGraph G, ALGraph *T)
 {
+    // 用克鲁斯卡尔算法构造图G的最小生成树T,图G和T采用邻接表存储结构
+    int i, j, v, w;
+    MFSet S;
+    Heap H;
+    RcdType temp, *arcs;
+    AdjVexNodeP p;
+    // 初始化T
+    T->n = G.n;
+    T->e = 0;
+    T->kind = G.kind;
+    T->vexs = (VexNode *)malloc(G.n * sizeof(VexNode));
+    T->tags = (int *)malloc(G.n * sizeof(int));
+    for (i = 0; i < G.n; i++)
+    {
+        T->vexs[i].data = G.vexs[i].data;
+        T->vexs[i].firstArc = NULL;
+        T->tags = UNVISITED;
+    }
+    InitMFSet(&S, G.n); // 初始化顶点并查集S,每个顶点自成一个子集
+    arcs = (RcdType *)malloc((G.e + 1) * sizeof(RcdType));
+    j = 1;
+    for (i = 0; i < G.n; i++)
+    {
+        for (p = G.vexs[i].firstArc; p != NULL; p = p->nextArc)
+        {
+            if (i < p->adjvex)
+            {
+                arcs[j].v = i;
+                arcs[j].w = p->adjvex;
+                arcs[j].key = p->info;
+                j++;
+            }
+        }
+    }
+    MakeHeap(&H, arcs, G.e, G.e + 1, 0, lessPrior); // 建立含所有边的最小堆H
+    for (i = 0; i < G.e; i++)
+    {
+        RemoveFirstHeap(&H, &temp); // 从小顶堆H移除堆顶值,作为当前权值最小的边
+        v = temp.v;
+        w = temp.w;
+        if (TRUE == UnionMFSet(&S, v, w)) // 如果v和w不在同一个子集中,则合并
+        {
+            AddArc_AL(T, v, w, temp.key); // 加入边(v,w),不会形成回路
+            if (T->e == G.n - 1)
+                break;
+        }
+    }
+    free(arcs);
+    if (T->e == G.n - 1)
+        return OK;
+    return ERROR;
 }

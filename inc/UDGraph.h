@@ -106,6 +106,8 @@ typedef struct
 Status CreateGraph_AL(ALGraph *G, GraphKind kind, VexType *vexs, int n, ArcInfo *arcs, int e);
 // 创建无向图G
 Status CreateUDG_AL(ALGraph *G, VexType *vexs, int n, ArcInfo *arcs, int e);
+// 创建无向带权图G
+Status CreateUDN_AL(ALGraph *G, VexType *vexs, int n, ArcInfo *arcs, int e);
 // 销毁图G
 Status DestroyGraph_AL(ALGraph *G);
 // 查找顶点v在图G中的位序
@@ -129,7 +131,7 @@ Status DFSTraverse_AL(ALGraph G, Status (*visit)(int));
 // 广度优先遍历图G
 Status BFSTraverse_AL(ALGraph G, Status (*visit)(int));
 // 打印邻接表图
-Status printALGraph(ALGraph H);
+Status PrintGraph_AL(ALGraph H);
 // 在图G中设置顶点v到顶点w的弧或边
 Status SetArc_AL(ALGraph *G, VexType v, VexType w, int info);
 
