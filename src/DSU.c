@@ -40,30 +40,30 @@ Status UnionMFSet_Default(MFSet *S, int i, int j)
 {
     // 合并并查集S中元素i和j所属的两个集合
     if (i < 0 || i >= S->n || j < 0 || j >= S->n)
-        return ERROR; // 表示不存在元素i或j
+        return FALSE; // 表示不存在元素i或j
 
     // 查找i和j所在子树的根结点
     int ri = FindMFSet(S, i);
     int rj = FindMFSet(S, j);
 
     if (ri == rj)
-        return ERROR;
+        return FALSE;
 
     S->parent[ri] = rj; // 将根结点ri的双亲结点值置为rj
 
-    return OK;
+    return TRUE;
 }
 
 Status UnionMFSet_WUR(MFSet *S, int i, int j)
 {
     if (i < 0 || i >= S->n || j < 0 || j >= S->n)
-        return ERROR; // 表示不存在元素i或j
+        return FALSE; // 表示不存在元素i或j
 
     // 查找i和j所在子树的根结点
     int ri = FindMFSet(S, i);
     int rj = FindMFSet(S, j);
     if (ri == rj)
-        return ERROR;
+        return FALSE;
     if (S->parent[ri] > S->parent[rj]) // 因为是负数，所以rj是较矮的树
     {
         S->parent[rj] += S->parent[ri];
@@ -75,24 +75,24 @@ Status UnionMFSet_WUR(MFSet *S, int i, int j)
         S->parent[rj] = ri;
     }
 
-    return OK;
+    return TRUE;
 }
 
 Status UnionMFSet_PC(MFSet *S, int i, int j)
 {
     // 合并并查集S中元素i和j所属的两个集合，同时压缩路径
     if (i < 0 || i >= S->n || j < 0 || j >= S->n)
-        return ERROR; // 表示不存在元素i或j
+        return FALSE; // 表示不存在元素i或j
 
     // 查找i和j所在子树的根结点
     int ri = FindPCMFSet_PC_ite(S, i);
     int rj = FindPCMFSet_PC_ite(S, j);
     if (ri == rj)
-        return ERROR;
+        return FALSE;
 
     S->parent[ri] = rj; // 将根结点ri的双亲结点值置为rj
 
-    return OK;
+    return TRUE;
 }
 
 int FindPCMFSet_PC_ite(MFSet *S, int i)
