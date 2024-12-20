@@ -47,7 +47,8 @@ int main(void)
                 free(arcs);
             }
             puts("请输入顶点数和边数:");
-            scanf(" %d %d", &n, &e);
+            puts("格式: 顶点数,边数");
+            scanf(" %d,%d", &n, &e);
             vexs = (VexType *)malloc(n * sizeof(VexType));
             arcs = (ArcInfo *)malloc(e * sizeof(ArcInfo));
             puts("请输入顶点信息:");
@@ -56,9 +57,10 @@ int main(void)
                 scanf(" %c", &vexs[i]);
             }
             puts("请输入边的信息:");
+            puts("格式: 起点,终点,权值");
             for (int i = 0; i < e; i++)
             {
-                scanf(" %c %c %d", &arcs[i].v, &arcs[i].w, &arcs[i].info);
+                scanf(" %c,%c,%d", &arcs[i].v, &arcs[i].w, &arcs[i].info);
             }
             currentData = USER_DATA;
             puts("已加载用户输入测试数据!");

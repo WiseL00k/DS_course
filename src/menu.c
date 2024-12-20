@@ -160,6 +160,11 @@ void generatePrim(VexType *vexs, int n, ArcInfo *arcs, int e, int outputResultWa
             printf("Prim算法结果:\n");
             PrintGraph_M(T);
         }
+        else if (outputResultWay == USE_STRING)
+        {
+
+        }
+
     }
     else
     {
@@ -187,6 +192,10 @@ void generateKruskal(VexType *vexs, int n, ArcInfo *arcs, int e, int outputResul
         if (outputResultWay == USE_PRINT)
         {
             PrintGraph_AL(T);
+        }
+        else if (outputResultWay == USE_STRING)
+        {
+
         }
     }
     else
