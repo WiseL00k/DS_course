@@ -7,7 +7,7 @@ void GenerateMenu(VexType *vexs, int n, ArcInfo *arcs, int e)
 {
     int select = -1;
     int outputResultWay = USE_STRING;
-    double graphDensity = e / (n * (n - 1) / 2);
+    double graphDensity = e / (n * (n - 1) / 2.0f);
     do
     {
         select = -1;
@@ -15,6 +15,7 @@ void GenerateMenu(VexType *vexs, int n, ArcInfo *arcs, int e)
         displayGenerateMenu();
         fflush(stdin); // 清空输入缓冲区
         scanf("%d", &select);
+        system("cls"); // 清屏
         switch (select)
         {
         case USE_PRIM:
@@ -24,6 +25,10 @@ void GenerateMenu(VexType *vexs, int n, ArcInfo *arcs, int e)
             generateKruskal(vexs, n, arcs, e, outputResultWay);
             break;
         case USE_RECOMMENDED:
+            printf("------------------------------------------\n");
+            printf("当前图密度为: %.2lf\n", graphDensity);
+            printf("系统推荐使用: %s算法\n", graphDensity > 0.5 ? "Prim" : "Kruskal");
+            printf("------------------------------------------\n");
             if (graphDensity > 0.5)
                 generatePrim(vexs, n, arcs, e, outputResultWay);
             else
@@ -64,7 +69,7 @@ void displayInputDataMenu()
     printf("在选择好测试数据后,便可开始测试\n");
     printf("------------------------------------------\n");
     printf("当前时间: %d年%d月%d日 %02d:%02d\n", timeinfo->tm_year + 1900, timeinfo->tm_mon + 1, timeinfo->tm_mday, timeinfo->tm_hour, timeinfo->tm_min);
-    printf("请输入你的选择: ");
+    printf("请输入你的选择<0-3>: ");
 }
 
 void displayGenerateMenu()
@@ -86,7 +91,7 @@ void displayGenerateMenu()
     printf("\t0. 退出\n");
     printf("------------------------------------------\n");
     printf("当前时间: %d年%d月%d日 %02d:%02d\n", timeinfo->tm_year + 1900, timeinfo->tm_mon + 1, timeinfo->tm_mday, timeinfo->tm_hour, timeinfo->tm_min);
-    printf("请输入你的选择: ");
+    printf("请输入你的选择<0-4>: ");
 }
 
 void displayOutputResultWayMenu()
@@ -106,7 +111,7 @@ void displayOutputResultWayMenu()
     printf("\t0. 退出\n");
     printf("------------------------------------------\n");
     printf("当前时间: %d年%d月%d日 %02d:%02d\n", timeinfo->tm_year + 1900, timeinfo->tm_mon + 1, timeinfo->tm_mday, timeinfo->tm_hour, timeinfo->tm_min);
-    printf("请输入你的选择: ");
+    printf("请输入你的选择<0-2>: ");
 }
 
 void outputResultWayMenu(int *outputResultWay)
