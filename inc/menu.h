@@ -2,6 +2,7 @@
 #define __MENU_H__
 
 #include <stdio.h>
+#include <time.h>
 #include "UDGraph.h"
 #include "MST.h"
 

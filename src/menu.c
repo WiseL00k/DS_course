@@ -1,5 +1,8 @@
 #include "menu.h"
 
+time_t rawtime;
+struct tm *timeinfo;
+
 void GenerateMenu(VexType *vexs, int n, ArcInfo *arcs, int e)
 {
     int select = -1;
@@ -42,6 +45,11 @@ void GenerateMenu(VexType *vexs, int n, ArcInfo *arcs, int e)
 
 void displayInputDataMenu()
 {
+    // 获取当前系统时间
+    time(&rawtime);
+    // 将时间转换为本地时间
+    timeinfo = localtime(&rawtime);
+
     printf("------------------------------------------\n");
     printf("\t数据结构课程设计\n");
     printf("\t城际铁路建设方案\n");
@@ -55,11 +63,16 @@ void displayInputDataMenu()
     printf("------------------------------------------\n");
     printf("在选择好测试数据后,便可开始测试\n");
     printf("------------------------------------------\n");
-    printf("请输入你的选择: ");
+    printf("当前时间: %d年%d月%d日 %02d:%02d\n", timeinfo->tm_year + 1900, timeinfo->tm_mon + 1, timeinfo->tm_mday, timeinfo->tm_hour, timeinfo->tm_min);
+    printf("请输入你的选择:\n");
 }
 
 void displayGenerateMenu()
 {
+    // 获取当前系统时间
+    time(&rawtime);
+    // 将时间转换为本地时间
+    timeinfo = localtime(&rawtime);
     printf("------------------------------------------\n");
     printf("\t数据结构课程设计\n");
     printf("\t城际铁路建设方案\n");
@@ -72,11 +85,16 @@ void displayGenerateMenu()
     printf("\t4. 选择输出结果方式\n");
     printf("\t0. 退出\n");
     printf("------------------------------------------\n");
-    printf("请输入你的选择: ");
+    printf("当前时间: %d年%d月%d日 %02d:%02d\n", timeinfo->tm_year + 1900, timeinfo->tm_mon + 1, timeinfo->tm_mday, timeinfo->tm_hour, timeinfo->tm_min);
+    printf("请输入你的选择:\n");
 }
 
 void displayOutputResultWayMenu()
 {
+    // 获取当前系统时间
+    time(&rawtime);
+    // 将时间转换为本地时间
+    timeinfo = localtime(&rawtime);
     printf("------------------------------------------\n");
     printf("\t数据结构课程设计\n");
     printf("\t城际铁路建设方案\n");
@@ -87,6 +105,7 @@ void displayOutputResultWayMenu()
     printf("\t2. 使用打印输出\n");
     printf("\t0. 退出\n");
     printf("------------------------------------------\n");
+    printf("当前时间: %d年%d月%d日 %02d:%02d\n", timeinfo->tm_year + 1900, timeinfo->tm_mon + 1, timeinfo->tm_mday, timeinfo->tm_hour, timeinfo->tm_min);
     printf("请输入你的选择: ");
 }
 
@@ -116,7 +135,7 @@ void outputResultWayMenu(int *outputResultWay)
             printf("输入错误,请重试!\n");
             break;
         }
-        if(select != EXIT)
+        if (select != EXIT)
         {
             puts("按任意键以继续...");
             system("pause");
