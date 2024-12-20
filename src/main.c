@@ -6,6 +6,7 @@
 int main(void)
 {
     int select = -1, n = 5, e = 7;
+    int currentData = DEFAULT_DATA;
     VexType *vexs = NULL;
     ArcInfo *arcs = NULL;
     // 默认测试数据
@@ -25,17 +26,26 @@ int main(void)
         {
         case DEFAULT_DATA:
         {
-            vexs = default_test_vexs;
-            arcs = default_test_arcs;
-            n = 5;
-            e = 7;
+            if(currentData == USER_DATA)
+            {
+                free(vexs);
+                free(arcs);
+                vexs = default_test_vexs;
+                arcs = default_test_arcs;
+                n = 5;
+                e = 7;
+                currentData = DEFAULT_DATA;
+            }
             puts("已加载默认测试数据!");
-            puts("按任意键以继续...");
-            system("pause");
             break;
         }
         case USER_DATA:
         {
+            if(currentData == USER_DATA)
+            {
+                free(vexs);
+                free(arcs);
+            }
             puts("请输入顶点数和边数:");
             scanf(" %d %d", &n, &e);
             vexs = (VexType *)malloc(n * sizeof(VexType));
@@ -50,22 +60,25 @@ int main(void)
             {
                 scanf(" %c %c %d", &arcs[i].v, &arcs[i].w, &arcs[i].info);
             }
+            currentData = USER_DATA;
             puts("已加载用户输入测试数据!");
-            puts("按任意键以继续...");
-            system("pause");
             break;
         }
         case GENEGATE_MST:
             GenerateMenu(vexs, n, arcs, e);
+            continue;
         // 退出
         case EXIT:
             printf("已退出程序!\n谢谢使用!\n");
             break;
         default:
             printf("输入错误,请重试!\n");
+            break;
+        }
+        if (select != EXIT)
+        {
             puts("按任意键以继续...");
             system("pause");
-            break;
         }
     } while (select != EXIT);
 

@@ -104,17 +104,22 @@ void outputResultWayMenu(int *outputResultWay)
         {
         case USE_STRING:
             *outputResultWay = USE_STRING;
+            printf("已选择使用字符串方式输出结果!\n");
             break;
         case USE_PRINT:
             *outputResultWay = USE_PRINT;
+            printf("已选择使用打印无向图存储结构方式输出结果!\n");
             break;
         case EXIT:
             break;
         default:
             printf("输入错误,请重试!\n");
+            break;
+        }
+        if(select != EXIT)
+        {
             puts("按任意键以继续...");
             system("pause");
-            break;
         }
     } while (select != EXIT);
 }
