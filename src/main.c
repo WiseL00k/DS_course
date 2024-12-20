@@ -5,13 +5,27 @@
 
 int main(void)
 {
-    int select = -1, n = 5, e = 7;
+    int select = -1, n = 10, e = 13;
     int currentData = DEFAULT_DATA;
     VexType *vexs = NULL;
     ArcInfo *arcs = NULL;
     // 默认测试数据
-    VexType default_test_vexs[5] = {'A', 'B', 'C', 'D', 'E'};
-    ArcInfo default_test_arcs[7] = {{'A', 'B', 3}, {'A', 'D', 8}, {'A', 'E', 10}, {'E', 'D', 9}, {'B', 'D', 6}, {'C', 'B', 15}, {'C', 'E', 12}};
+    VexType default_test_vexs[10] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'};
+    ArcInfo default_test_arcs[13] = {
+        {'A', 'B', 3},
+        {'A', 'D', 8},
+        {'A', 'E', 10},
+        {'E', 'D', 9},
+        {'B', 'D', 6},
+        {'C', 'B', 15},
+        {'C', 'E', 12},
+        {'D', 'F', 7},
+        {'F', 'G', 5},
+        {'G', 'H', 4},
+        {'H', 'I', 2},
+        {'I', 'J', 1},
+        {'J', 'E', 11},
+    };
     vexs = default_test_vexs;
     arcs = default_test_arcs;
     // 主菜单
@@ -32,8 +46,8 @@ int main(void)
                 free(arcs);
                 vexs = default_test_vexs;
                 arcs = default_test_arcs;
-                n = 5;
-                e = 7;
+                n = 10;
+                e = 13;
                 currentData = DEFAULT_DATA;
             }
             puts("已加载默认测试数据!");

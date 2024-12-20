@@ -5,10 +5,9 @@
 #include <stdlib.h>
 #include "Status.h" // 状态码定义
 
-
 // 选择图存储方式，选择一种即可 邻接矩阵 ADJMATRIX 或者 邻接表 ADJLIST
 // 这里因为需要根据边数和点数选择最优存储方式，所以两种都选择了
-#define USE_ADJLIST 
+#define USE_ADJLIST
 #define USE_ADJMATRIX
 
 #define UNVISITED 0
@@ -32,7 +31,10 @@ typedef enum
     UDN  // 无向带权图
 } GraphKind;
 
-Status visit(int k); // 访问顶点k
+// 访问顶点k
+Status visit(int k);
+// 打印边信息
+Status printArcs(ArcInfo *arcs, int e);
 
 #ifdef USE_ADJMATRIX
 typedef struct
