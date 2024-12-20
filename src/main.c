@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "UDGraph.h"
-#include "DSU.h"
 #include "menu.h"
 
 int main(void)

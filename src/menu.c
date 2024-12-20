@@ -122,7 +122,13 @@ void outputResultWayMenu(int *outputResultWay)
 void generatePrim(VexType *vexs, int n, ArcInfo *arcs, int e, int outputResultWay)
 {
     MGraph G, T;
-    CreateGraph_M(&G, UDN, vexs, n, arcs, e);
+    if (ERROR == CreateGraph_M(&G, UDN, vexs, n, arcs, e))
+    {
+        printf("创建图失败!\n");
+        puts("按任意键以继续...");
+        system("pause");
+        return;
+    }
     if (OK == Prim(G, 0, &T))
     {
         if (outputResultWay == USE_PRINT)
@@ -135,6 +141,7 @@ void generatePrim(VexType *vexs, int n, ArcInfo *arcs, int e, int outputResultWa
     {
         printf("Prim算法失败!\n");
         printf("请检查输入数据是否正确!是否是连通图!\n");
+        PrintGraph_M(T);
     }
     puts("按任意键以继续...");
     system("pause");
@@ -152,9 +159,9 @@ void generateKruskal(VexType *vexs, int n, ArcInfo *arcs, int e, int outputResul
     }
     if (OK == Kruskal(G, &T))
     {
+        printf("Kruskal算法结果:\n");
         if (outputResultWay == USE_PRINT)
         {
-            printf("Kruskal算法结果:\n");
             PrintGraph_AL(T);
         }
     }
@@ -162,6 +169,7 @@ void generateKruskal(VexType *vexs, int n, ArcInfo *arcs, int e, int outputResul
     {
         printf("Kruskal算法失败!\n");
         printf("请检查输入数据是否正确!是否是连通图!\n");
+        PrintGraph_AL(T);
     }
     puts("按任意键以继续...");
     system("pause");
