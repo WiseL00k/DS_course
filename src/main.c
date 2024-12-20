@@ -26,7 +26,7 @@ int main(void)
         {
         case DEFAULT_DATA:
         {
-            if(currentData == USER_DATA)
+            if (currentData == USER_DATA)
             {
                 free(vexs);
                 free(arcs);
@@ -41,7 +41,7 @@ int main(void)
         }
         case USER_DATA:
         {
-            if(currentData == USER_DATA)
+            if (currentData == USER_DATA)
             {
                 free(vexs);
                 free(arcs);
