@@ -93,6 +93,7 @@ Status generateRandomConnectedGraphData(VexType **vexs, int *n, ArcInfo **arcs, 
     }
     DestroyGraph_M(&G);
     free(visited);
+    free(edges);
     puts("已生成随机无向带权连通图数据!");
     printf("顶点数: %d, 边数: %d\n", random_n, random_e);
     return OK;
