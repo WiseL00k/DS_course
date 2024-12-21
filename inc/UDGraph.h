@@ -17,6 +17,14 @@
 #define MAXINT 0x0FFFFFFF
 
 typedef char VexType;
+
+typedef struct
+{
+    int u;
+    int v;
+}Edge;
+
+
 typedef struct
 {
     VexType v, w;

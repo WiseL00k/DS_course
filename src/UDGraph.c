@@ -16,9 +16,12 @@ Status nop(int k)
 Status generateRandomConnectedGraphData(VexType **vexs, int *n, ArcInfo **arcs, int *e)
 {
     int random_n, random_e;
+    clock_t start, end;
+    start = clock();       // 记录开始时间
     *n = rand() % 15 + 10; // 顶点数
     random_n = *n;
-    *e = rand() % (random_n * (random_n - 1) - 10) + 10; // 边数
+    // 边数,因为是无向图,所以边数是顶点数的n-1到n*(n-1)/2
+    *e = rand() % (random_n * (random_n - 1)/2 - (random_n - 1) + 1) + (random_n - 1); 
     random_e = *e;
     int additionalEdges = random_e - (random_n - 1);
     MGraph G;
@@ -42,24 +45,48 @@ Status generateRandomConnectedGraphData(VexType **vexs, int *n, ArcInfo **arcs, 
         visited[v] = 1;
     }
 
-    // 添加额外的随机边
-    for (int i = 0; i < additionalEdges;)
+    // 初始化所有可能的顶点对
+    int totalPairs = random_n * (random_n - 1) / 2;
+    Edge *edges = (Edge *)malloc(totalPairs * sizeof(Edge));
+    int k = 0;
+    for (int i = 0; i < random_n; i++)
     {
-        int u = rand() % random_n;
-        int v = rand() % random_n;
-        if (u != v && G.arcs[u][v] == INFINITY)
+        for (int j = i + 1; j < random_n; j++)
+        {
+            edges[k].u = i;
+            edges[k].v = j;
+            k++;
+        }
+    }
+
+    // 添加额外的随机边
+    int debug_count = 0, i = 0;
+    while (additionalEdges > 0)
+    {
+        int index = rand() % totalPairs; // 随机选择一个顶点对
+        int u = edges[index].u;
+        int v = edges[index].v;
+        printf("添加额外随机边消耗次数: %d 当前生成到第%d条额外边 还需要生成%d条额外边 u:%d,v:%d\n", debug_count++, i + 1, additionalEdges, u, v);
+        if (G.arcs[u][v] == INFINITY && u != v)
         {
             int weight = rand() % 100 + 1; // 随机权值
             AddArc_M(&G, u, v, weight);
-            i++; // 成功添加一条边，计数器加1
+            --additionalEdges; // 成功添加一条边，计数器减1
+            ++i;
         }
+        // 将已使用的边给数组末尾占用，并减少总对数
+        edges[index] = edges[totalPairs - 1];
+        --totalPairs;
     }
+
+    end = clock(); // 记录结束时间
+    printf("生成随机无向带权连通图数据耗时: %.4lf秒\n", (double)(end - start) / CLOCKS_PER_SEC);
     // debug
     PrintGraph_M(G);
 
     // 将生成的图数据返回
     *arcs = (ArcInfo *)malloc(G.e * sizeof(ArcInfo));
-    int k = 0;
+    k = 0;
     for (int i = 0; i < G.n; i++)
     {
         for (int j = i + 1; j < G.n; j++)
