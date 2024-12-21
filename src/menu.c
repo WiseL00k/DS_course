@@ -176,6 +176,8 @@ void generatePrim(VexType *vexs, int n, ArcInfo *arcs, int e, int outputResultWa
         printf("请检查输入数据是否正确!是否是连通图!\n");
         PrintGraph_M(T);
     }
+    DestroyGraph_M(&G);
+    DestroyGraph_M(&T);
     puts("按任意键以继续...");
     system("pause");
 }
@@ -208,6 +210,8 @@ void generateKruskal(VexType *vexs, int n, ArcInfo *arcs, int e, int outputResul
         printf("请检查输入数据是否正确!是否是连通图!\n");
         PrintGraph_AL(T);
     }
+    DestroyGraph_AL(&G);
+    DestroyGraph_AL(&T);
     puts("按任意键以继续...");
     system("pause");
 }
