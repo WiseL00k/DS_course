@@ -74,6 +74,7 @@ int main(void)
             puts("格式: 起点,终点,权值");
             for (int i = 0; i < e; i++)
             {
+                printf("请输入第%d条边的信息:", i + 1);
                 scanf(" %c,%c,%d", &arcs[i].v, &arcs[i].w, &arcs[i].info);
             }
             currentData = USER_DATA;

@@ -344,11 +344,11 @@ Status PrintGraph_M(MGraph H)
     printf("该邻接矩阵图的信息如下\n");
     printf("顶点数:%d,边数:%d\n", H.n, H.e);
     printf("邻接矩阵如下\n");
-    printf("顶点数组 关 系 数 组\n");
+    printf("顶点数组    关 系 数 组\n");
     printf("行\\列->\t ");
     for (int i = 0; i < H.n; i++)
     {
-        printf("%d\t", i);
+        printf("%6d", i);
     }
     printf("\n");
     for (int i = 0; i < H.n; i++)
@@ -357,9 +357,9 @@ Status PrintGraph_M(MGraph H)
         for (int j = 0; j < H.n; j++)
         {
             if (H.arcs[i][j] == INFINITY)
-                printf("∞\t");
+                printf("     ∞");
             else
-                printf("%d\t", H.arcs[i][j]);
+                printf("%6d", H.arcs[i][j]);
         }
         printf("\n");
     }
