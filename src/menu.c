@@ -25,10 +25,10 @@ void GenerateMenu(VexType *vexs, int n, ArcInfo *arcs, int e)
             generateKruskal(vexs, n, arcs, e, outputResultWay);
             break;
         case USE_RECOMMENDED:
-            printf("------------------------------------------\n");
+            printf("=========================================\n");
             printf("当前图密度为: %.2lf\n", graphDensity);
             printf("系统推荐使用: %s算法\n", graphDensity > 0.5 ? "Prim" : "Kruskal");
-            printf("------------------------------------------\n");
+            printf("=========================================\n");
             if (graphDensity > 0.5)
                 generatePrim(vexs, n, arcs, e, outputResultWay);
             else
@@ -48,6 +48,21 @@ void GenerateMenu(VexType *vexs, int n, ArcInfo *arcs, int e)
     } while (select != EXIT);
 }
 
+void displayMenuHeadline()
+{
+    puts("      ____   ____    _   _   _____ ");
+    puts("     / ___| |  _ \\  | | | | |_   _|");
+    puts("    | |  _  | | | | | | | |   | |  ");
+    puts("    | |_| | | |_| | | |_| |   | |  ");
+    puts("     \\____| |____/   \\___/    |_|  ");
+    printf("-----------------------------------------\n");
+    printf("\t   数据结构课程设计\n");
+    printf("\t   城际铁路建设方案\n");
+    printf("-----------------------------------------\n");
+    printf("姓名:XXX 班级:XX计科X班 学号:XXXXXXXXXX\n");
+    printf("-----------------------------------------\n");
+}
+
 void displayInputDataMenu()
 {
     // 获取当前系统时间
@@ -55,20 +70,15 @@ void displayInputDataMenu()
     // 将时间转换为本地时间
     timeinfo = localtime(&rawtime);
 
-    printf("------------------------------------------\n");
-    printf("\t数据结构课程设计\n");
-    printf("\t城际铁路建设方案\n");
-    printf("------------------------------------------\n");
-    printf("姓名:XXX 班级:XX计科X班 学号:XXXXXXXXXX\n");
-    printf("------------------------------------------\n");
-    printf("\t1. 使用默认数据(默认)\n");
-    printf("\t2. 用户自行输入\n");
-    printf("\t3. 随机生成数据\n");
-    printf("\t4. 开始测试\n");
-    printf("\t0. 退出\n");
-    printf("------------------------------------------\n");
+    displayMenuHeadline();
+    printf("\t   1. 使用默认数据(默认)\n");
+    printf("\t   2. 用户自行输入\n");
+    printf("\t   3. 随机生成数据\n");
+    printf("\t   4. 开始测试\n");
+    printf("\t   0. 退出\n");
+    printf("-----------------------------------------\n");
     printf("在选择好测试数据后,便可开始测试\n");
-    printf("------------------------------------------\n");
+    printf("-----------------------------------------\n");
     printf("当前时间: %d年%d月%d日 %02d:%02d\n", timeinfo->tm_year + 1900, timeinfo->tm_mon + 1, timeinfo->tm_mday, timeinfo->tm_hour, timeinfo->tm_min);
     printf("请输入你的选择<0-3>: ");
 }
@@ -79,18 +89,13 @@ void displayGenerateMenu()
     time(&rawtime);
     // 将时间转换为本地时间
     timeinfo = localtime(&rawtime);
-    printf("------------------------------------------\n");
-    printf("\t数据结构课程设计\n");
-    printf("\t城际铁路建设方案\n");
-    printf("------------------------------------------\n");
-    printf("姓名:XXX 班级:XX计科X班 学号:XXXXXXXXXX\n");
-    printf("------------------------------------------\n");
+    displayMenuHeadline();
     printf("\t1. 使用Prim算法\n");
     printf("\t2. 使用Kruskal算法\n");
     printf("\t3. 使用系统推荐算法(自动二选一)\n");
     printf("\t4. 选择输出结果方式\n");
     printf("\t0. 退出\n");
-    printf("------------------------------------------\n");
+    printf("-----------------------------------------\n");
     printf("当前时间: %d年%d月%d日 %02d:%02d\n", timeinfo->tm_year + 1900, timeinfo->tm_mon + 1, timeinfo->tm_mday, timeinfo->tm_hour, timeinfo->tm_min);
     printf("请输入你的选择<0-4>: ");
 }
@@ -101,16 +106,11 @@ void displayOutputResultWayMenu()
     time(&rawtime);
     // 将时间转换为本地时间
     timeinfo = localtime(&rawtime);
-    printf("------------------------------------------\n");
-    printf("\t数据结构课程设计\n");
-    printf("\t城际铁路建设方案\n");
-    printf("------------------------------------------\n");
-    printf("姓名:XXX 班级:XX计科X班 学号:XXXXXXXXXX\n");
-    printf("------------------------------------------\n");
+    displayMenuHeadline();
     printf("\t1. 直接输出方案(默认)\n");
     printf("\t2. 打印存储结构\n");
     printf("\t0. 退出\n");
-    printf("------------------------------------------\n");
+    printf("-----------------------------------------\n");
     printf("当前时间: %d年%d月%d日 %02d:%02d\n", timeinfo->tm_year + 1900, timeinfo->tm_mon + 1, timeinfo->tm_mday, timeinfo->tm_hour, timeinfo->tm_min);
     printf("请输入你的选择<0-2>: ");
 }
@@ -235,7 +235,8 @@ void outPutResult_M(MGraph T)
             }
         }
     }
-    printf("总权值: %d\n", weight);
+    printf("总铁路(边)数: %d\n", T.n-1);
+    printf("总里程数(总权值): %d\n", weight);
     puts("==========================================");
 }
 
@@ -262,7 +263,8 @@ void outPutResult_AL(ALGraph T)
             }
         }
     }
-    printf("总权值: %d\n", weight);
+    printf("总铁路(边)数: %d\n", T.n-1);
+    printf("总里程数(总权值): %d\n", weight);
     puts("==========================================");
     free(visited);
 }
