@@ -13,6 +13,73 @@ Status nop(int k)
     return OK;
 }
 
+Status generateRandomConnectedGraphData(VexType **vexs, int *n, ArcInfo **arcs, int *e)
+{
+    int random_n, random_e;
+    *n = rand() % 15 + 10; // 顶点数
+    random_n = *n;
+    *e = rand() % (random_n * (random_n - 1) - 10) + 10; // 边数
+    random_e = *e;
+    int additionalEdges = random_e - (random_n - 1);
+    MGraph G;
+    srand(time(NULL));
+    *vexs = (VexType *)malloc(random_n * sizeof(VexType));
+    for (int i = 0; i < random_n; i++)
+        (*vexs)[i] = 'A' + i;
+
+    InitGraph_M(&G, UDN, *vexs, random_n);
+
+    // 基于Prim算法生成一个随机生成树
+    int *visited = (int *)calloc(random_n, sizeof(int));
+    visited[0] = 1;
+    for (int i = 1; i < random_n; i++)
+    {
+        // 从顶点1开始,因为开始顶点0和顶点1之间的边必定添加
+        int u = rand() % i;
+        int v = i;
+        int weight = rand() % 100 + 1; // 随机权值
+        AddArc_M(&G, u, v, weight);
+        visited[v] = 1;
+    }
+
+    // 添加额外的随机边
+    for (int i = 0; i < additionalEdges;)
+    {
+        int u = rand() % random_n;
+        int v = rand() % random_n;
+        if (u != v && G.arcs[u][v] == INFINITY)
+        {
+            int weight = rand() % 100 + 1; // 随机权值
+            AddArc_M(&G, u, v, weight);
+            i++; // 成功添加一条边，计数器加1
+        }
+    }
+    // debug
+    PrintGraph_M(G);
+
+    // 将生成的图数据返回
+    *arcs = (ArcInfo *)malloc(G.e * sizeof(ArcInfo));
+    int k = 0;
+    for (int i = 0; i < G.n; i++)
+    {
+        for (int j = i + 1; j < G.n; j++)
+        {
+            if (G.arcs[i][j] != INFINITY)
+            {
+                (*arcs)[k].v = G.vexs[i];
+                (*arcs)[k].w = G.vexs[j];
+                (*arcs)[k].info = G.arcs[i][j];
+                k++;
+            }
+        }
+    }
+    DestroyGraph_M(&G);
+    free(visited);
+    puts("已生成随机无向带权连通图数据!");
+    printf("顶点数: %d, 边数: %d\n", random_n, random_e);
+    return OK;
+}
+
 #ifdef USE_ADJMATRIX
 
 Status InitGraph_M(MGraph *G, GraphKind kind, VexType *vexs, int n)
@@ -184,8 +251,8 @@ int NextAdjVex_M(MGraph G, int k, int m)
 Status AddArc_M(MGraph *G, int k, int m, int info)
 {
     if (k < 0 || k >= G->n || m < 0 || m >= G->n)
-        return ERROR;                                    // k顶点或m顶点不存在
-    if (G->arcs[k][m] == 0 || G->arcs[k][m] == INFINITY) // 判断k和m之间是否存在弧
+        return ERROR; // k顶点或m顶点不存在
+    if ((UDG == G->kind || DG == G->kind) && info != 1)
         return ERROR;
     if (G->kind == UDG) // 无向图
     {
@@ -306,7 +373,9 @@ Status SetArc_M(MGraph *G, VexType v, VexType w, int info)
     int k = LocateVex_M(*G, v);
     int m = LocateVex_M(*G, w);
     if (k < 0 || k >= G->n || m < 0 || m >= G->n)
-        return ERROR; // k顶点或m顶点不存在
+        return ERROR;                                    // k顶点或m顶点不存在
+    if (G->arcs[k][m] == 0 || G->arcs[k][m] == INFINITY) // 判断k和m之间是否存在弧
+        return ERROR;
     if (G->kind == UDG)
         G->arcs[k][m] = G->arcs[m][k] = 1;
     else if (G->kind == UDN)

@@ -3,6 +3,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 #include "Status.h" // 状态码定义
 
 // 选择图存储方式，选择一种即可 邻接矩阵 ADJMATRIX 或者 邻接表 ADJLIST
@@ -35,6 +36,8 @@ typedef enum
 Status visit(int k);
 // 打印边信息
 Status printArcs(ArcInfo *arcs, int e);
+// 生成随机图数据
+Status generateRandomConnectedGraphData(VexType **vexs, int *n, ArcInfo **arcs, int *e);
 
 #ifdef USE_ADJMATRIX
 typedef struct

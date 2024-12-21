@@ -40,7 +40,7 @@ int main(void)
         {
         case DEFAULT_DATA:
         {
-            if (currentData == USER_DATA)
+            if (currentData == USER_DATA || currentData == RANDOM_DATA)
             {
                 free(vexs);
                 free(arcs);
@@ -55,7 +55,7 @@ int main(void)
         }
         case USER_DATA:
         {
-            if (currentData == USER_DATA)
+            if (currentData == USER_DATA || currentData == RANDOM_DATA)
             {
                 free(vexs);
                 free(arcs);
@@ -78,9 +78,7 @@ int main(void)
             }
             currentData = USER_DATA;
             MGraph G_M;
-            ALGraph G_AL;
             CreateGraph_M(&G_M, UDN, vexs, n, arcs, e);
-            CreateGraph_AL(&G_AL, UDN, vexs, n, arcs, e);
             if (!isConnected_M(&G_M))
             {
                 printf("图不连通!请检查输入数据是否正确!\n");
@@ -89,6 +87,15 @@ int main(void)
             puts("已加载用户输入测试数据!");
             break;
         }
+        case RANDOM_DATA:
+            if (currentData == USER_DATA || currentData == RANDOM_DATA)
+            {
+                free(vexs);
+                free(arcs);
+            }
+            generateRandomConnectedGraphData(&vexs, &n, &arcs, &e);
+            currentData = RANDOM_DATA;
+            break;
         case GENEGATE_MST:
             GenerateMenu(vexs, n, arcs, e);
             continue;

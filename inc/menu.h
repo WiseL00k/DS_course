@@ -9,7 +9,8 @@
 #define EXIT 0
 #define DEFAULT_DATA 1
 #define USER_DATA 2
-#define GENEGATE_MST 3
+#define RANDOM_DATA 3
+#define GENEGATE_MST 4
 
 #define USE_PRIM 1
 #define USE_KRUSKAL 2
