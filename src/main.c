@@ -33,7 +33,7 @@ int main(void)
     {
         select = -1;
         system("cls"); // 清屏
-        displayInputDataMenu();
+        displayInputDataMenu(n,e);
         fflush(stdin); // 清空输入缓冲区
         scanf("%d", &select);
         switch (select)

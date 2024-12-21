@@ -21,8 +21,8 @@
 #define USE_PRINT 2
 
 void GenerateMenu(VexType *vexs, int n, ArcInfo *arcs, int e);
-void displayInputDataMenu();
-void displayGenerateMenu();
+void displayInputDataMenu(int n, int e);
+void displayGenerateMenu(int n, int e);
 void displayOutputResultWayMenu();
 void displayMenuHeadline();
 void outputResultWayMenu(int *outputResultWay);

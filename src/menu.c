@@ -12,7 +12,7 @@ void GenerateMenu(VexType *vexs, int n, ArcInfo *arcs, int e)
     {
         select = -1;
         system("cls"); // 清屏
-        displayGenerateMenu();
+        displayGenerateMenu(n, e);
         fflush(stdin); // 清空输入缓冲区
         scanf("%d", &select);
         system("cls"); // 清屏
@@ -63,7 +63,7 @@ void displayMenuHeadline()
     printf("-----------------------------------------\n");
 }
 
-void displayInputDataMenu()
+void displayInputDataMenu(int n, int e)
 {
     // 获取当前系统时间
     time(&rawtime);
@@ -79,11 +79,13 @@ void displayInputDataMenu()
     printf("-----------------------------------------\n");
     printf("在选择好测试数据后,便可开始测试\n");
     printf("-----------------------------------------\n");
+    printf("当前城市(顶点)数: %d, 铁路(边)数: %d\n", n, e);
     printf("当前时间: %d年%d月%d日 %02d:%02d\n", timeinfo->tm_year + 1900, timeinfo->tm_mon + 1, timeinfo->tm_mday, timeinfo->tm_hour, timeinfo->tm_min);
-    printf("请输入你的选择<0-3>: ");
+    printf("-----------------------------------------\n");
+    printf("请输入你的选择<0-4>: ");
 }
 
-void displayGenerateMenu()
+void displayGenerateMenu(int n, int e)
 {
     // 获取当前系统时间
     time(&rawtime);
@@ -96,7 +98,9 @@ void displayGenerateMenu()
     printf("\t4. 选择输出结果方式\n");
     printf("\t0. 退出\n");
     printf("-----------------------------------------\n");
+    printf("当前城市(顶点)数: %d, 铁路(边)数: %d\n", n, e);
     printf("当前时间: %d年%d月%d日 %02d:%02d\n", timeinfo->tm_year + 1900, timeinfo->tm_mon + 1, timeinfo->tm_mday, timeinfo->tm_hour, timeinfo->tm_min);
+    printf("-----------------------------------------\n");
     printf("请输入你的选择<0-4>: ");
 }
 
@@ -112,6 +116,7 @@ void displayOutputResultWayMenu()
     printf("\t0. 退出\n");
     printf("-----------------------------------------\n");
     printf("当前时间: %d年%d月%d日 %02d:%02d\n", timeinfo->tm_year + 1900, timeinfo->tm_mon + 1, timeinfo->tm_mday, timeinfo->tm_hour, timeinfo->tm_min);
+    printf("-----------------------------------------\n");
     printf("请输入你的选择<0-2>: ");
 }
 
@@ -235,7 +240,7 @@ void outPutResult_M(MGraph T)
             }
         }
     }
-    printf("总铁路(边)数: %d\n", T.n-1);
+    printf("总铁路(边)数: %d\n", T.n - 1);
     printf("总里程数(总权值): %d\n", weight);
     puts("==========================================");
 }
@@ -263,7 +268,7 @@ void outPutResult_AL(ALGraph T)
             }
         }
     }
-    printf("总铁路(边)数: %d\n", T.n-1);
+    printf("总铁路(边)数: %d\n", T.n - 1);
     printf("总里程数(总权值): %d\n", weight);
     puts("==========================================");
     free(visited);
