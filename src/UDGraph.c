@@ -7,6 +7,12 @@ Status visit(int k)
     return OK;
 }
 
+// 空函数,什么也不做,供DFS使用
+Status nop(int k)
+{
+    return OK;
+}
+
 #ifdef USE_ADJMATRIX
 
 Status InitGraph_M(MGraph *G, GraphKind kind, VexType *vexs, int n)
@@ -196,15 +202,15 @@ Status AddArc_M(MGraph *G, int k, int m, int info)
 Status RemoveArc_M(MGraph *G, int k, int m)
 {
     if (k < 0 || k >= G->n || m < 0 || m >= G->n)
-        return ERROR;                                     // k顶点或m顶点不存在
-    if (G->kind == UDG && G->arcs[k][m] && G->arcs[m][k]) // 无向图
+        return ERROR;                   // k顶点或m顶点不存在
+    if (G->arcs[k][m] && G->arcs[m][k]) // 无向图或无向带权图
     {
         G->arcs[k][m] = G->arcs[m][k] = 0; // 删除k顶点与m顶点之间的边或弧
         G->e--;                            // 边数减1
     }
     else
     {
-        return ERROR; // 无向网
+        return ERROR;
     }
     return OK;
 }
@@ -308,6 +314,23 @@ Status SetArc_M(MGraph *G, VexType v, VexType w, int info)
     else
         G->arcs[k][m] = info;
     return OK;
+}
+
+Status isConnected_M(MGraph *G)
+{
+    int i;
+    for (i = 0; i < G->n; ++i)
+        G->tags[i] = UNVISITED; // 初始化标志数组
+    DFS_M(*G, 0, nop);
+    // 检查是否所有顶点都被访问过
+    for (int i = 0; i < G->n; i++)
+    {
+        if (G->tags[i] != VISITED)
+        {
+            return FALSE; // 图不连通
+        }
+    }
+    return TRUE; // 图连通
 }
 
 #endif
@@ -672,6 +695,23 @@ Status SetArc_AL(ALGraph *G, VexType v, VexType w, int info)
     else
         p->info = info;
     return OK;
+}
+
+Status isConnected_AL(ALGraph *G)
+{
+    int i;
+    for (i = 0; i < G->n; ++i)
+        G->tags[i] = UNVISITED; // 初始化标志数组
+    DFS_AL(*G, 0, nop);
+    // 检查是否所有顶点都被访问过
+    for (int i = 0; i < G->n; i++)
+    {
+        if (G->tags[i] != VISITED)
+        {
+            return FALSE; // 图不连通
+        }
+    }
+    return TRUE; // 图连通
 }
 
 #endif

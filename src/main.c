@@ -77,6 +77,15 @@ int main(void)
                 scanf(" %c,%c,%d", &arcs[i].v, &arcs[i].w, &arcs[i].info);
             }
             currentData = USER_DATA;
+            MGraph G_M;
+            ALGraph G_AL;
+            CreateGraph_M(&G_M, UDN, vexs, n, arcs, e);
+            CreateGraph_AL(&G_AL, UDN, vexs, n, arcs, e);
+            if (!isConnected_M(&G_M))
+            {
+                printf("图不连通!请检查输入数据是否正确!\n");
+                break;
+            }
             puts("已加载用户输入测试数据!");
             break;
         }

@@ -80,6 +80,8 @@ Status BFSTraverse_M(MGraph G, Status (*visit)(int));
 Status PrintGraph_M(MGraph H);
 // 在图G中设置顶点v到顶点w的弧或边
 Status SetArc_M(MGraph *G, VexType v, VexType w, int info);
+// 判断图G是否连通
+Status isConnected_M(MGraph *G);
 
 #endif
 
@@ -136,6 +138,8 @@ Status BFSTraverse_AL(ALGraph G, Status (*visit)(int));
 Status PrintGraph_AL(ALGraph H);
 // 在图G中设置顶点v到顶点w的弧或边
 Status SetArc_AL(ALGraph *G, VexType v, VexType w, int info);
+// 判断图G是否连通
+Status isConnected_AL(ALGraph *G);
 
 #endif
 
