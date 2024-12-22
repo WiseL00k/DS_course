@@ -20,6 +20,13 @@
 #define USE_STRING 1
 #define USE_PRINT 2
 
+extern VexType default_test_vexs[10];
+extern ArcInfo default_test_arcs[13];
+
+
+void useDefaultData(VexType **vexs, int *n, ArcInfo **arcs, int *e, int *currentDatap);
+void useUserData(VexType **vexs, int *n, ArcInfo **arcs, int *e, int *currentDatap);
+void useRandomData(VexType **vexs, int *n, ArcInfo **arcs, int *e, int *currentDatap);
 void GenerateMenu(VexType *vexs, int n, ArcInfo *arcs, int e);
 void displayInputDataMenu(int n, int e);
 void displayGenerateMenu(int n, int e);

@@ -3,6 +3,83 @@
 time_t rawtime;
 struct tm *timeinfo;
 
+// 默认测试数据
+VexType default_test_vexs[10] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'};
+ArcInfo default_test_arcs[13] = {
+    {'A', 'B', 3},
+    {'A', 'D', 8},
+    {'A', 'E', 10},
+    {'E', 'D', 9},
+    {'B', 'D', 6},
+    {'C', 'B', 15},
+    {'C', 'E', 12},
+    {'D', 'F', 7},
+    {'F', 'G', 5},
+    {'G', 'H', 4},
+    {'H', 'I', 2},
+    {'I', 'J', 1},
+    {'J', 'E', 11},
+};
+
+void useDefaultData(VexType **vexs, int *n, ArcInfo **arcs, int *e, int *currentDatap)
+{
+    if (*currentDatap == USER_DATA || *currentDatap == RANDOM_DATA)
+    {
+        free(vexs);
+        free(arcs);
+        *vexs = default_test_vexs;
+        *arcs = default_test_arcs;
+        *n = 10;
+        *e = 13;
+        *currentDatap = DEFAULT_DATA;
+    }
+    puts("已加载默认测试数据!");
+}
+
+void useUserData(VexType **vexs, int *n, ArcInfo **arcs, int *e, int *currentDatap)
+{
+    if (*currentDatap == USER_DATA || *currentDatap == RANDOM_DATA)
+    {
+        free(*vexs);
+        free(*arcs);
+    }
+    puts("请输入顶点数和边数(格式: 顶点数,边数):");
+    scanf(" %d,%d", n, e);
+    *vexs = (VexType *)malloc(*n * sizeof(VexType));
+    *arcs = (ArcInfo *)malloc(*e * sizeof(ArcInfo));
+    puts("请输入顶点信息:");
+    for (int i = 0; i < *n; i++)
+    {
+        scanf(" %c", &(*vexs)[i]);
+    }
+    puts("请输入边的信息:");
+    for (int i = 0; i < *e; i++)
+    {
+        printf("请输入第%d条边的信息(格式: 起点,终点,权值):\n", i + 1);
+        scanf(" %c,%c,%d", &(*arcs)[i].v, &(*arcs)[i].w, &(*arcs)[i].info);
+    }
+    *currentDatap = USER_DATA;
+    MGraph G_M;
+    CreateGraph_M(&G_M, UDN, *vexs, *n, *arcs, *e);
+    if (!isConnected_M(&G_M))
+    {
+        printf("图不连通!请检查输入数据是否正确!\n");
+        return;
+    }
+    puts("已加载用户输入测试数据!");
+}
+
+void useRandomData(VexType **vexs, int *n, ArcInfo **arcs, int *e, int *currentDatap)
+{
+    if (*currentDatap == USER_DATA || *currentDatap == RANDOM_DATA)
+    {
+        free(*vexs);
+        free(*arcs);
+    }
+    generateRandomConnectedGraphData(vexs, n, arcs, e);
+    *currentDatap = RANDOM_DATA;
+}
+
 void GenerateMenu(VexType *vexs, int n, ArcInfo *arcs, int e)
 {
     int select = -1;
