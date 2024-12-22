@@ -16,8 +16,10 @@
 #define INFINITY MAXINT
 #define MAXINT 0x0FFFFFFF
 
+// 顶点类型
 typedef char VexType;
 
+// 用于Kruskal算法的辅助存储结构
 typedef struct
 {
     int u;
@@ -25,12 +27,14 @@ typedef struct
 }Edge;
 
 
+// 边信息
 typedef struct
 {
     VexType v, w;
     int info;
 } ArcInfo;
 
+// 图类型
 // 暂未实现有向图相关API接口,只支持无向图
 typedef enum
 {
@@ -98,17 +102,21 @@ Status isConnected_M(MGraph *G);
 
 #ifdef USE_ADJLIST
 
+// 邻接顶点类型
 typedef struct AdjVexNode
 {
     int adjvex;
     struct AdjVexNode *nextArc;
     int info;
 } AdjVexNode, *AdjVexNodeP;
+
+// 顶点类型
 typedef struct VexNode
 {
     VexType data;
     struct AdjVexNode *firstArc;
 } VexNode;
+
 typedef struct
 {
     VexNode *vexs;

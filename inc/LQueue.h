@@ -5,8 +5,10 @@
 #include <stdlib.h>
 #include "Status.h" // 状态码定义
 
+// 队列元素类型
 typedef int ElemType;
 
+// 链队列结点类型
 typedef struct LQNode
 {
     ElemType data;

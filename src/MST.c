@@ -3,11 +3,6 @@
 #define SELECTED 1
 #define UNSELECTED 0
 
-typedef struct
-{
-    int adjInd;
-    int lowcost;
-} ClosedgeInfo;
 
 // 用普里姆算法从i顶点出发构造图G的最小生成树T，图G和T采用邻接数组存储结构
 Status Prim(MGraph G, int i, MGraph *T)

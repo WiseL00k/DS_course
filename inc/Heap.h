@@ -4,15 +4,17 @@
 #include <stdlib.h>
 #include "Status.h"
 
+// 堆的关键字类型
 typedef int KeyType;
 
+// 堆中结点的存储结构
 typedef struct
 {
     int v, w;
     KeyType key; // 边的权值
 } RcdType;
 
-
+// 堆类型
 typedef struct
 {
     RcdType *rcd;

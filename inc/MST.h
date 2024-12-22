@@ -6,6 +6,13 @@
 #include "Heap.h"
 #include "DSU.h"
 
+// 最小边信息
+typedef struct
+{
+    int adjInd;
+    int lowcost;
+} ClosedgeInfo;
+
 // 生成最小生成树
 Status generateMST();
 Status Prim(MGraph G, int i, MGraph *T);
