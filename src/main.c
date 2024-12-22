@@ -33,7 +33,7 @@ int main(void)
     {
         select = -1;
         system("cls"); // 清屏
-        displayInputDataMenu(n,e);
+        displayInputDataMenu(n, e);
         fflush(stdin); // 清空输入缓冲区
         scanf("%d", &select);
         switch (select)
@@ -60,8 +60,7 @@ int main(void)
                 free(vexs);
                 free(arcs);
             }
-            puts("请输入顶点数和边数:");
-            puts("格式: 顶点数,边数");
+            puts("请输入顶点数和边数(格式: 顶点数,边数):");
             scanf(" %d,%d", &n, &e);
             vexs = (VexType *)malloc(n * sizeof(VexType));
             arcs = (ArcInfo *)malloc(e * sizeof(ArcInfo));
@@ -71,10 +70,9 @@ int main(void)
                 scanf(" %c", &vexs[i]);
             }
             puts("请输入边的信息:");
-            puts("格式: 起点,终点,权值");
             for (int i = 0; i < e; i++)
             {
-                printf("请输入第%d条边的信息:", i + 1);
+                printf("请输入第%d条边的信息(格式: 起点,终点,权值):\n", i + 1);
                 scanf(" %c,%c,%d", &arcs[i].v, &arcs[i].w, &arcs[i].info);
             }
             currentData = USER_DATA;
