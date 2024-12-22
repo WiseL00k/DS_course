@@ -52,17 +52,17 @@ void GenerateMenu(VexType *vexs, int n, ArcInfo *arcs, int e)
 
 void displayMenuHeadline()
 {
-    puts("      ____   ____    _   _   _____ ");
-    puts("     / ___| |  _ \\  | | | | |_   _|");
-    puts("    | |  _  | | | | | | | |   | |  ");
-    puts("    | |_| | | |_| | | |_| |   | |  ");
-    puts("     \\____| |____/   \\___/    |_|  ");
-    printf("-----------------------------------------\n");
-    printf("\t   数据结构课程设计\n");
-    printf("\t   城际铁路建设方案\n");
-    printf("-----------------------------------------\n");
-    printf("姓名:XXX 班级:XX计科X班 学号:XXXXXXXXXX\n");
-    printf("-----------------------------------------\n");
+    puts("       ____   ____    _   _   _____   ");
+    puts("      / ___| |  _ \\  | | | | |_   _| ");
+    puts("     | |  _  | | | | | | | |   | |    ");
+    puts("     | |_| | | |_| | | |_| |   | |    ");
+    puts("      \\____| |____/   \\___/    |_|  ");
+    printf("-------------------------------------------\n");
+    printf("\t     数据结构课程设计\n");
+    printf("\t     城际铁路建设方案\n");
+    printf("-------------------------------------------\n");
+    printf("姓名:XXXX 班级:XX计科XX班 学号:XXXXXXXXXX\n");
+    printf("-------------------------------------------\n");
 }
 
 void displayInputDataMenu(int n, int e)
@@ -78,12 +78,12 @@ void displayInputDataMenu(int n, int e)
     printf("\t   3. 随机生成数据\n");
     printf("\t   4. 开始测试\n");
     printf("\t   0. 退出\n");
-    printf("-----------------------------------------\n");
+    printf("-------------------------------------------\n");
     printf("在选择好测试数据后,便可开始测试\n");
-    printf("-----------------------------------------\n");
+    printf("-------------------------------------------\n");
     printf("当前城市(顶点)数: %d, 铁路(边)数: %d\n", n, e);
     printf("当前时间: %d年%d月%d日 %02d:%02d\n", timeinfo->tm_year + 1900, timeinfo->tm_mon + 1, timeinfo->tm_mday, timeinfo->tm_hour, timeinfo->tm_min);
-    printf("-----------------------------------------\n");
+    printf("-------------------------------------------\n");
     printf("请输入你的选择<0-4>: ");
 }
 
@@ -98,11 +98,11 @@ void displayGenerateMenu(int n, int e)
     printf("\t2. 使用Kruskal算法\n");
     printf("\t3. 使用系统推荐算法(自动二选一)\n");
     printf("\t4. 选择输出结果方式\n");
-    printf("\t0. 退出\n");
-    printf("-----------------------------------------\n");
+    printf("\t0. 返回\n");
+    printf("-------------------------------------------\n");
     printf("当前城市(顶点)数: %d, 铁路(边)数: %d\n", n, e);
     printf("当前时间: %d年%d月%d日 %02d:%02d\n", timeinfo->tm_year + 1900, timeinfo->tm_mon + 1, timeinfo->tm_mday, timeinfo->tm_hour, timeinfo->tm_min);
-    printf("-----------------------------------------\n");
+    printf("-------------------------------------------\n");
     printf("请输入你的选择<0-4>: ");
 }
 
@@ -113,12 +113,12 @@ void displayOutputResultWayMenu()
     // 将时间转换为本地时间
     timeinfo = localtime(&rawtime);
     displayMenuHeadline();
-    printf("\t1. 直接输出方案(默认)\n");
-    printf("\t2. 打印存储结构\n");
-    printf("\t0. 退出\n");
-    printf("-----------------------------------------\n");
+    printf("\t  1. 直接输出方案(默认)\n");
+    printf("\t  2. 打印存储结构\n");
+    printf("\t  0. 返回\n");
+    printf("-------------------------------------------\n");
     printf("当前时间: %d年%d月%d日 %02d:%02d\n", timeinfo->tm_year + 1900, timeinfo->tm_mon + 1, timeinfo->tm_mday, timeinfo->tm_hour, timeinfo->tm_min);
-    printf("-----------------------------------------\n");
+    printf("-------------------------------------------\n");
     printf("请输入你的选择<0-2>: ");
 }
 

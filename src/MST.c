@@ -121,20 +121,20 @@ void outPutResult_M(MGraph T)
     int weight = 0;
     puts("==========================================");
     printf("使用Prim算法得出的铁路建设方案如下:\n");
-    printf("铁路(边)\t\t权值\n");
+    printf("铁路(边)\t\t 权值\n");
     for (int i = 0; i < T.n; i++)
     {
         for (int j = i; j < T.n; j++)
         {
             if (T.arcs[i][j] != INFINITY)
             {
-                printf("%c市<->%c市\t\t%d\n", T.vexs[i], T.vexs[j], T.arcs[i][j]);
+                printf("%c市<->%c市\t\t %3d\n", T.vexs[i], T.vexs[j], T.arcs[i][j]);
                 weight += T.arcs[i][j];
             }
         }
     }
-    printf("需要建设的总铁路(边)数: %d\n", T.n - 1);
-    printf("需要建设的总里程数(总权值): %d\n", weight);
+    printf("需要建设的总里程(权值)数:%3d\n", weight);
+    printf("需要建设的总铁路(边)数:%d\n", T.n - 1);
     puts("==========================================");
 }
 
@@ -145,7 +145,7 @@ void outPutResult_AL(ALGraph T)
     int *visited = (int *)calloc(T.n * T.n, sizeof(int)); // 用于记录已经访问过的边
     puts("==========================================");
     printf("使用Kruskal算法得出的铁路建设方案如下:\n");
-    printf("铁路(边)\t\t权值\n");
+    printf("铁路(边)\t\t 权值\n");
     for (int i = 0; i < T.n; i++)
     {
         for (AdjVexNodeP p = T.vexs[i].firstArc; p; p = p->nextArc)
@@ -154,15 +154,15 @@ void outPutResult_AL(ALGraph T)
             int v = p->adjvex;
             if (!visited[u * T.n + v] && !visited[v * T.n + u])
             {
-                printf("%c市<->%c市\t\t%d\n", T.vexs[u].data, T.vexs[v].data, p->info);
+                printf("%c市<->%c市\t\t %3d\n", T.vexs[u].data, T.vexs[v].data, p->info);
                 weight += p->info;
                 visited[u * T.n + v] = 1;
                 visited[v * T.n + u] = 1;
             }
         }
     }
-    printf("需要建设的总铁路(边)数: %d\n", T.n - 1);
-    printf("需要建设的总里程数(总权值): %d\n", weight);
+    printf("需要建设的总里程(权值)数:%3d\n", weight);
+    printf("需要建设的总铁路(边)数:%d\n", T.n - 1);
     puts("==========================================");
     free(visited);
 }
