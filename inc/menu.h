@@ -28,8 +28,5 @@ void displayMenuHeadline();
 void outputResultWayMenu(int *outputResultWay);
 void generatePrim(VexType *vexs, int n, ArcInfo *arcs, int e, int outputResultWay);
 void generateKruskal(VexType *vexs, int n, ArcInfo *arcs, int e, int outputResultWay);
-// 输出Prim算法得出的建设方案
-void outPutResult_M(MGraph T);
-// 输出Kruskal算法得出的建设方案
-void outPutResult_AL(ALGraph T);
+
 #endif /* __MENU_H__ */

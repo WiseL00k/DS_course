@@ -5,7 +5,7 @@
 #include <stdio.h>
 #include "Status.h" // 状态码定义
 
-#define USE_WUR_UNION // 采用加权合并原则
+#define USE_PC_UNION // 采用压缩路径原则
 
 /* 使用者可自行进行宏定义，以选择不同的并查集合并方式 */
 #ifdef USE_WUR_UNION
