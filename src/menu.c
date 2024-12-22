@@ -15,16 +15,18 @@ void GenerateMenu(VexType *vexs, int n, ArcInfo *arcs, int e)
         displayGenerateMenu(n, e);
         fflush(stdin); // 清空输入缓冲区
         scanf("%d", &select);
-        system("cls"); // 清屏
         switch (select)
         {
         case USE_PRIM:
+            system("cls"); // 清屏
             generatePrim(vexs, n, arcs, e, outputResultWay);
             break;
         case USE_KRUSKAL:
+            system("cls"); // 清屏
             generateKruskal(vexs, n, arcs, e, outputResultWay);
             break;
         case USE_RECOMMENDED:
+            system("cls"); // 清屏
             printf("=========================================\n");
             printf("当前图密度为: %.2lf\n", graphDensity);
             printf("系统推荐使用: %s算法\n", graphDensity > 0.5 ? "Prim" : "Kruskal");
@@ -240,8 +242,8 @@ void outPutResult_M(MGraph T)
             }
         }
     }
-    printf("总铁路(边)数: %d\n", T.n - 1);
-    printf("总里程数(总权值): %d\n", weight);
+    printf("需要建设的总铁路(边)数: %d\n", T.n - 1);
+    printf("需要建设的总里程数(总权值): %d\n", weight);
     puts("==========================================");
 }
 
@@ -268,8 +270,8 @@ void outPutResult_AL(ALGraph T)
             }
         }
     }
-    printf("总铁路(边)数: %d\n", T.n - 1);
-    printf("总里程数(总权值): %d\n", weight);
+    printf("需要建设的总铁路(边)数: %d\n", T.n - 1);
+    printf("需要建设的总里程数(总权值): %d\n", weight);
     puts("==========================================");
     free(visited);
 }
